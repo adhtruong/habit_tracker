@@ -2,11 +2,25 @@
 
 {% block content %}
 
-    <table>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <th scope="col">Date</th>
+        <th scope="col">Distance</th>
+        <th scope="col">Time</th>
+        <th scope="col">Description</th>
+      </thead>
     {% for object in runs %}
-      <tr>
-        <td>{{ object.date_ran|date:"d/m/Y" }}</td>
-        <td>{{ object.distance }}</td>
+      <tr >
+        {% if object.author == user %}
+          <th scope="row"><a href="{% url 'run-detail' object.id %}">{{ object.date_ran|date:"d/m/Y" }}</a></th>
+        {% else %}
+          <th scope="row">{{ object.date_ran|date:"d/m/Y" }}</th>
+        {% endif %}
+        {% if object.units == "km" %}
+          <td>{{ object.distance }} {{ object.units }}</td>
+        {% else %}
+          <td>{{ object.distance }} miles</td>
+        {% endif %}
         <td>{{ object.time }} {{ objects.units}}</td>
         <td>{{ object.description }}</td>
       </tr>

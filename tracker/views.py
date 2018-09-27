@@ -11,11 +11,7 @@ from django.views.generic import (
 )
 from .models import Run
 
-# Create your views here.
-def index(request):
-    return render(request,'tracker/index.html')
-
-class UsersRunListView(ListView):
+class UsersRunListView(LoginRequiredMixin, ListView):
     model = Run
     template_name = 'tracker/user_runs.html'
     context_object_name = 'runs'
@@ -24,7 +20,9 @@ class UsersRunListView(ListView):
         # user = get_object_or_404(User, username=self.kwargs.get('username'))
         # return Run.objects.filter(author=user).order_by('-date_posted')
 
-        return Run.objects.all()
+        return Run.objects.filter(author=self.request.user).order_by('-date_ran')
+
+
 
 class RunDetailView(DetailView):
     model = Run

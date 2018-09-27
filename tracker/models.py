@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 class Run(models.Model):
@@ -11,7 +12,7 @@ class Run(models.Model):
     )
     date_added= models.DateTimeField(default=timezone.now)
     date_ran = models.DateTimeField(default=timezone.now)
-    distance = models.FloatField()
+    distance = models.FloatField(validators=[MinValueValidator(0)])
     units = models.CharField(max_length=5,choices=UNIT_CHOICES,default="km")
     time = models.DurationField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
