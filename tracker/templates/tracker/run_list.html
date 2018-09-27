@@ -1,0 +1,16 @@
+{% extends "tracker/includes/base.html" %}
+
+{% block content %}
+
+    <table>
+    {% for object in runs %}
+      <tr>
+        <td>{{ object.date_ran|date:"d/m/Y" }}</td>
+        <td>{{ object.distance }}</td>
+        <td>{{ object.time }} {{ objects.units}}</td>
+        <td>{{ object.description }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+
+{% endblock content %}
