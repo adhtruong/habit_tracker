@@ -1,0 +1,25 @@
+{% extends "tracker/includes/base.html" %}
+
+{% block content %}
+  <div class="content-section">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Delete run</legend>
+        <h2>Are you sure you want to delete the the following run?</h2>
+        <table class="table">
+          <tr>
+            <td>{{ object.date_ran|date:"d/m/Y" }}</td>
+            <td>{{ object.distance }}</td>
+            <td>{{ object.time }} {{ objects.units}}</td>
+            <td>{{ object.description }}</td>
+          </tr>
+        </table>
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-danger" type="submit">Yes, delete run</button>
+        <a class="btn btn-outline-secondary" href="{% url 'run-detail' object.id %}">No</a>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

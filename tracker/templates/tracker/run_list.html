@@ -1,30 +1,36 @@
 {% extends "tracker/includes/base.html" %}
 
 {% block content %}
-
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <th scope="col">Date</th>
-        <th scope="col">Distance</th>
-        <th scope="col">Time</th>
-        <th scope="col">Description</th>
-      </thead>
-    {% for object in runs %}
-      <tr >
-        {% if object.author == user %}
-          <th scope="row"><a href="{% url 'run-detail' object.id %}">{{ object.date_ran|date:"d/m/Y" }}</a></th>
-        {% else %}
-          <th scope="row">{{ object.date_ran|date:"d/m/Y" }}</th>
-        {% endif %}
-        {% if object.units == "km" %}
-          <td>{{ object.distance }} {{ object.units }}</td>
-        {% else %}
-          <td>{{ object.distance }} miles</td>
-        {% endif %}
-        <td>{{ object.time }} {{ objects.units}}</td>
-        <td>{{ object.description }}</td>
-      </tr>
-    {% endfor %}
-    </table>
+    <div class="content-section">
+      <p>This site allows users to track runs.</p>
+      {% if runs %}
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <th scope="col">Date</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Time</th>
+            <th scope="col">Description</th>
+          </thead>
+        {% for object in runs %}
+          <tr >
+            {% if object.author == user %}
+              <th scope="row"><a href="{% url 'run-detail' object.id %}">{{ object.date_ran|date:"d/m/Y" }}</a></th>
+            {% else %}
+              <th scope="row">{{ object.date_ran|date:"d/m/Y" }}</th>
+            {% endif %}
+            {% if object.units == "km" %}
+              <td>{{ object.distance }} {{ object.units }}</td>
+            {% else %}
+              <td>{{ object.distance }} miles</td>
+            {% endif %}
+            <td>{{ object.time }} {{ objects.units}}</td>
+            <td>{{ object.description }}</td>
+          </tr>
+        {% endfor %}
+        </table>
+      {% else %}
+        <p>No runs added yet. Please <a href="{% url 'run-create' %}">create run</a>.</p>
+      {% endif %}
+    </div>
 
 {% endblock content %}

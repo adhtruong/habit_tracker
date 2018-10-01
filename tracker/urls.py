@@ -14,7 +14,7 @@ from . import views
 # ]
 
 urlpatterns = [
-    path('', UsersRunListView.as_view(), name='home'),
+    path('', UsersRunListView.as_view(), name='users-run'),
     #path('run/user/<str:username>/', UserPostListView.as_view(), name='user-posts'),
     path('run/<int:pk>/', RunDetailView.as_view(), name='run-detail'),
     path('run/new/', RunCreateView.as_view(), name='run-create'),
